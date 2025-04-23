@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cimback.simba.model.Summary;
 
-public interface SummaryRepo extends JpaRepository<Summary,Long>{
-    List<Summary> findAllByUserIdOrderByCreatedDescList(Long username);
+public interface SummaryRepo extends JpaRepository<Summary, Long> {
+    List<Summary> findAllByUserIdOrderByCreatedAtDesc(Long user_Id);
 }

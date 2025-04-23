@@ -19,24 +19,27 @@ public class SummaryService {
     @Autowired
     private UserRepo userRepo;
 
-    private final String SCALA_SERVICE_URL = "http://localhost:9000/scala/process";
+    // private final String SCALA_SERVICE_URL = "http://localhost:9000/scala/process";
 
-    public Summary generateSummary(String username, String url) {
+    public String  generateSummary( String url,String username) {
+        System.out.println("User found: ");
         User user = userRepo.findByUsername(username).orElseThrow();
-
-        RestTemplate restTemplate = new RestTemplate();
-        String transformedUrl = restTemplate.postForObject(SCALA_SERVICE_URL, url, String.class);
-
+        System.out.println("User found: ");
+        // RestTemplate restTemplate = new RestTemplate();
+        // String transformedUrl = restTemplate.postForObject(SCALA_SERVICE_URL, url, String.class);
+        String predefinedSummary = "This is a test summary for the given URL: " ;
         Summary summary = new Summary();
         summary.setUrl(url);
-        summary.setSummary(transformedUrl);
+        summary.setSummary(predefinedSummary);
         summary.setUser(user);
-        return summaryRepo.save(summary);
+        summaryRepo.save(summary);
+        return predefinedSummary;
     }
 
-    public List<Summary> getHistory(String username) {
-        User user = userRepo.findByUsername(username).orElseThrow();
-        return summaryRepo.findAllByUserIdOrderByCreatedDescList(user.getId());
-    }
+    // public List<Summary> getHistory(Long Id) {
+       
+        
+    //     return summaryRepo.findAllByUserIdOrderByCreatedAtDesc(Id));
+    // }
 
 }

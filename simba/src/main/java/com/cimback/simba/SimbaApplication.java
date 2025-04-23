@@ -9,5 +9,4 @@ public class SimbaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SimbaApplication.class, args);
 	}
-
 }

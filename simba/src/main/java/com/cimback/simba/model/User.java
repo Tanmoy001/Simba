@@ -70,12 +70,10 @@ public class User {
     }
 
     public User orElseThrow() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
     }
 
     public boolean isPresent() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isPresent'");
     }
     }
