@@ -35,6 +35,7 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
 
+
         String token = jwtService.generateToken(user.getUsername());
 
         Map<String, Object> response = new HashMap<>();
@@ -61,6 +62,9 @@ public class UserService {
                 // Fetch complete user details from database
                 User authenticatedUser = userRepo.findByUsername(user.getUsername())
                         .orElseThrow(() -> new RuntimeException("User not found"));
+
+
+
 
                 // Create response with all user details
                 Map<String, Object> response = new HashMap<>();

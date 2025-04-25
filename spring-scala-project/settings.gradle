@@ -1,0 +1,3 @@
+rootProject.name = 'spring-scala-project'
+include 'backendcim'
+include 'scala-lib-cim'

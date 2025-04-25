@@ -1,0 +1,24 @@
+plugins {
+    id 'scala'
+    id 'application'
+}
+
+group = 'com.example' // Replace with your project's group ID
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.13.12' // Use the latest Scala 2.13 version
+    // Add other Scala or Java dependencies here as needed
+    implementation 'org.playframework:play-json_2.13:3.0.2'
+
+    testImplementation 'org.scalatest:scalatest_2.13:3.2.18'
+
+}
+
+test {
+    useJUnitPlatform()
+}
