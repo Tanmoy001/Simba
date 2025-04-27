@@ -83,7 +83,7 @@ public class UserController {
     public ResponseEntity<String> generateSummary(@RequestParam String username, @RequestBody String url) {
 
         // System.out.println("summ called");
-           String summary = summaryService.generateSummary(url, username);
+          String summary = summaryService.generateSummary(url, username);
         String responseBody = "Resource with ID " ;
         apiLogger.log("/api/summary", "user", HttpStatus.OK.value(), responseBody);
         // System.out.println("Summary generated: " + summary);

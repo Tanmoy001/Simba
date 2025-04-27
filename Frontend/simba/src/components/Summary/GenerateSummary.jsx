@@ -38,7 +38,7 @@ const GenerateSummary = () => {
       {summary && (
         <div style={{ marginTop: '20px', padding: '15px', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '8px' }}>
           <h3>Generated Summary:</h3>
-          <p>{summary}</p>
+          <p>{summary.summary}</p>
         </div>
       )}
     </div>

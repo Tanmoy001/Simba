@@ -9,6 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/backendcim" />
+            <option value="$PROJECT_DIR$/scala-lib-cim" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,7 +1,12 @@
 package com.cimback.simba.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import com.cimback.simba.model.Summary;
 import com.cimback.simba.model.User;
 import com.cimback.simba.repo.SummaryRepo;
@@ -15,27 +20,29 @@ public class SummaryService {
     @Autowired
     private UserRepo userRepo;
 
-    // private final String SCALA_SERVICE_URL = "http://localhost:9000/scala/process";
+    private static final String FASTAPI_SERVICE_URL = "http://localhost:8000/process";
 
-    public String  generateSummary( String url,String username) {
-        System.out.println("User found: ");
+    public String generateSummary(String url, String username) {
         User user = userRepo.findByUsername(username).orElseThrow();
-        System.out.println("User found: ");
-        // RestTemplate restTemplate = new RestTemplate();
-        // String transformedUrl = restTemplate.postForObject(SCALA_SERVICE_URL, url, String.class);
-        String predefinedSummary = "This is a test summary for the given URL: " ;
-        Summary summary = new Summary();
-        summary.setUrl(url);
-        summary.setSummary(predefinedSummary);
-        summary.setUser(user);
-        summaryRepo.save(summary);
-        return predefinedSummary;
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        HttpEntity<String> request = new HttpEntity<>(url, headers);
+
+        try {
+            String summaryText = restTemplate.postForObject(FASTAPI_SERVICE_URL, request, String.class);
+
+            Summary summary = new Summary();
+            summary.setUrl(url);
+            summary.setSummary(summaryText);
+            summary.setUser(user);
+            summaryRepo.save(summary);
+            return summaryText;
+        } catch (RestClientException e) {
+            // Handle exception
+            throw new RuntimeException("Failed to connect to summary service: " + e.getMessage());
+        }
     }
-
-    // public List<Summary> getHistory(Long Id) {
-       
-        
-    //     return summaryRepo.findAllByUserIdOrderByCreatedAtDesc(Id));
-    // }
-
 }
