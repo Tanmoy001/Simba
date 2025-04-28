@@ -91,7 +91,7 @@ public class UserController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<SummaryDTO>> getHistory(@RequestParam Long userId) {
+    public ResponseEntity<List<SummaryDTO>> getHistory(@RequestParam(required = false) Long userId) {
         List<Summary> summaries = summaryRepo.findAllByUserIdOrderByCreatedAtDesc(userId);
         List<SummaryDTO> summaryDTOs = summaries.stream()
                 .map(SummaryDTO::new) //Aplly constructor to each summary object

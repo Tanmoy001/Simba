@@ -1,6 +1,10 @@
 plugins {
+    id 'org.springframework.boot' version '3.1.5'  // Spring Boot plugin
+    id 'io.spring.dependency-management' version '1.1.3'
     id 'java'
 }
+
+
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -43,7 +47,9 @@ dependencies {
 
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 }
-
+springBoot {
+    mainClass = 'com.cimback.simba.SimbaApplication'
+}
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs += '-parameters'
 }

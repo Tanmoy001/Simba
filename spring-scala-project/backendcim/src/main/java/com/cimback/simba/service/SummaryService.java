@@ -20,7 +20,7 @@ public class SummaryService {
     @Autowired
     private UserRepo userRepo;
 
-    private static final String FASTAPI_SERVICE_URL = "http://localhost:8000/process";
+    private static final String FASTAPI_SERVICE_URL = "http://fastapi:8000/process";
 
     public String generateSummary(String url, String username) {
         User user = userRepo.findByUsername(username).orElseThrow();

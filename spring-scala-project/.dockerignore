@@ -1,0 +1,16 @@
+.git
+.gradle
+build
+out
+*.iml
+**/build
+**/out
+**/.gradle
+**/node_modules
+Dockerfile
+docker-compose.yml
+**/*.md
+**/*.log
+**/__pycache__
+**/*.dockerignore
+**/*.gitignore

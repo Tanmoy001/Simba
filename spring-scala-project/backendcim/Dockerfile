@@ -1,21 +1,22 @@
-# Build stage
-FROM gradle:8.7-jdk17-alpine AS build
-WORKDIR /workspace
+# Stage 1: Build the entire project
+FROM eclipse-temurin:17-jdk-alpine AS builder
+WORKDIR /app
 
-# Copy entire project
+# Copy the entire project
 COPY . .
 
-# Build Scala library first
-RUN cd spring-scala-project/scala-lib-cim && \
-    gradle clean build publishToMavenLocal
+# Grant execute permissions to the Gradle wrapper
+RUN chmod +x ./gradlew
 
-# Build Spring Boot application
-RUN cd spring-scala-project/backendcim && \
-    gradle clean build -x test
+# Build only the backendcim project, which will also build the scala-lib-cim dependency
+RUN ./gradlew backendcim:bootJar
 
-# Runtime stage
+# Stage 2: Create the runtime image
 FROM eclipse-temurin:17-jre-alpine
-VOLUME /tmp
-ARG JAR_FILE=spring-scala-project/backendcim/build/libs/*.jar
-COPY --from=build /workspace/${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+
+# Copy the built JAR from the builder stage
+COPY --from=builder /app/backendcim/build/libs/*.jar backendcim.jar
+
+# Set the entry point to run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "backendcim.jar"]

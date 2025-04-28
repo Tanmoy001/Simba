@@ -104,6 +104,9 @@ module.exports = function (webpackEnv) {
 
   const shouldUseReactRefresh = env.raw.FAST_REFRESH;
 
+
+
+  
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
@@ -229,6 +232,21 @@ module.exports = function (webpackEnv) {
         : isEnvDevelopment &&
           (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
+    devServer: {
+      port: 3000,
+      setupMiddlewares: (middlewares, devServer) => {
+        if (!devServer) {
+          throw new Error('webpack-dev-server is not defined');
+        }
+    
+        devServer.app.use((req, res, next) => {
+          console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+          next();
+        });
+    
+        return middlewares;
+      }
+    },
     cache: {
       type: 'filesystem',
       version: createEnvironmentHash(env.raw),
@@ -336,6 +354,7 @@ module.exports = function (webpackEnv) {
         ]),
       ],
     },
+    
     module: {
       strictExportPresence: true,
       rules: [
