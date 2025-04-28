@@ -6,7 +6,7 @@ import '../../App.css';
 const History = () => {
   const dispatch = useDispatch();
   const { history, loading, error } = useSelector((state) => state.summary);
-  const username = localStorage.getItem('username');
+  // const username = localStorage.getItem('username');
 
   useEffect(() => {
     dispatch(getHistory());

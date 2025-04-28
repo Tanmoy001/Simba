@@ -96,7 +96,7 @@ export const logout = () => async (dispatch) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
     console.log("User:", user?.user_data?.username); // Check if user is valid before parsing
-    const userRaw = user?.user_data?.username;
+    // const userRaw = user?.user_data?.username;
     const token = user?.user_data?.token?.trim(); 
     console.log("Token:", token); // Check if token is valid before parsing
 

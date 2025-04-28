@@ -12,7 +12,7 @@ import GenerateSummary from './components/Summary/GenerateSummary';
 import History from './components/Summary/History';
 
 function App() {
-  const { loading, error, isAuthenticated } = useSelector(state => state.user);
+  const {  isAuthenticated } = useSelector(state => state.user);
   
 const dispatch = useDispatch();
   useEffect(() => {

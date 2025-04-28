@@ -1,9 +1,9 @@
-import { createStore,combineReducers, applyMiddleware } from '@reduxjs/toolkit';
+import { createStore,combineReducers } from '@reduxjs/toolkit';
 
 import summaryReducer from './reducers/summaryReducer';
 import {  userReducer } from './reducers/authReducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import {thunk} from 'redux-thunk'; // 
+// import { composeWithDevTools } from 'redux-devtools-extension';
+// import {thunk} from 'redux-thunk'; // 
  // example middleware 
 
  const rootReducer = combineReducers({
@@ -11,11 +11,11 @@ import {thunk} from 'redux-thunk'; //
   summary: summaryReducer
 });
 
-const middleware = [thunk];
+// const middleware = [thunk];
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
+  // composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default store;

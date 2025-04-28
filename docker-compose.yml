@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: cimbasweDB
+      POSTGRES_USER: cimba_user  # Changed from default 'postgres'
+      POSTGRES_PASSWORD: T@nmoy2001
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:  # Added healthcheck
+      test: ["CMD-SHELL", "pg_isready -U cimba_user -d cimbasweDB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./spring-scala-project/backendcim
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cimbasweDB
+      SPRING_DATASOURCE_USERNAME: cimba_user  # Match Postgres user
+      SPRING_DATASOURCE_PASSWORD: T@nmoy2001
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  ml-service:
+    build: ./fastapi-cim
+    environment:
+      GROQ_API_KEY: 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
+      DATABASE_URL: postgresql://cimba_user:T@nmoy2001@postgres:5432/cimbaDB  # Fixed credentials
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres  # Changed from backend
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
