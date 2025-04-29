@@ -30,11 +30,11 @@ def get_prompt_for_document(url):
     # Add your URL type detection logic here
     # Example pattern matching:
     if "youtube.com" in url:
-        return "Briefly summarize the key points from this YouTube video at {url}"
+        return "Briefly summarize the key points from this YouTube video at {url}. It should be start with The video discusses... and include a list of key points."
     elif "arxiv.org" in url:
-        return "Briefly provide a technical summary of this research paper at {url}"
+        return "Briefly provide a technical summary of this research paper at {url}. It should be start with The technical summary of this research paper..and include a list of key points."
     else:
-        return "Briefly provide a concise summary of the content at this URL: {url}"
+        return "Briefly provide a concise summary of the content at this URL: {url}. technical summary summary of the content at this URL..and include a list of key points."
 
 def clean_text(text):
     """Clean and format the LLM response"""

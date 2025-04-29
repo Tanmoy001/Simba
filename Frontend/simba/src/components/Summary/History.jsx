@@ -26,15 +26,15 @@ const History = () => {
         <table>
           <thead>
             <tr>
-              <th>Date</th>
+              <th>Id</th>
               <th>URL</th>
-              <th>Summary</th>
+              <th>All Info</th>
             </tr>
           </thead>
           <tbody>
             {history.map((item, index) => (
               <tr key={index}>
-                <td>{new Date(item.date).toLocaleString()}</td>
+                <td>{item.id}</td>
                 <td>
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
                     {item.url.length > 30 ? `${item.url.substring(0, 30)}...` : item.url}
